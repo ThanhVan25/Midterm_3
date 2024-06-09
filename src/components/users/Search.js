@@ -18,7 +18,7 @@ const Search = () => {
         if (queryText) {
             handleSearchUsers(queryText);
         }
-    }, []); 
+    }, []); // Empty dependency array means this effect runs only once after initial render
 
     const handleSearchUsers = async (text) => {
         try {

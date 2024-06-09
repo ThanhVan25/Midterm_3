@@ -28,7 +28,7 @@ const User = () => {
 
     return (
         <>
-            <Link to="/" className="btn btn-light">Back to Search</Link>
+            <Link to="/" className="btn">Back to Search</Link>
             <div>Hireable: {hireable ? <i className="fas fa-check text-success" /> : <i className="fas fa-times-circle text-danger" />}</div>
             <div className="card grid-2">
                 <div className="all-center">
