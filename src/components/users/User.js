@@ -1,4 +1,3 @@
-// User.js
 import React, { useEffect, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import { getUser, getUserRepos } from '../../api/api';
@@ -19,81 +18,33 @@ const User = () => {
                 console.error('Error fetching data:', error.message);
             }
         };
-
         fetchData();
     }, [id]);
 
     const {
-        name,
-        avatar_url,
-        location,
-        bio,
-        company,
-        blog,
-        login,
-        html_url,
-        followers,
-        following,
-        public_repos,
-        public_gists,
-        hireable,
+        name, avatar_url, location, bio, company, blog, login, html_url,
+        followers, following, public_repos, public_gists, hireable
     } = user;
 
     return (
         <>
-            <Link to="/" className="btn btn-light">
-                Back to Search
-            </Link>
-            Hireable: {hireable ? (
-                <i className="fas fa-check text-success" />
-            ) : (
-                <i className="fas fa-times-circle text-danger" />
-            )}
+            <Link to="/" className="btn btn-light">Back to Search</Link>
+            <div>Hireable: {hireable ? <i className="fas fa-check text-success" /> : <i className="fas fa-times-circle text-danger" />}</div>
             <div className="card grid-2">
                 <div className="all-center">
-                    <img
-                        src={avatar_url}
-                        alt={name}
-                        className="round-img"
-                        style={{ width: '150px' }}
-                    />
+                    <img src={avatar_url} alt={name} className="round-img" style={{ width: '150px' }} />
                     <h1>{name}</h1>
                     <p>{location}</p>
                 </div>
                 <div>
-                    {bio && (
-                        <>
-                            <h3>Bio:</h3>
-                            <p>{bio}</p>
-                        </>
-                    )}
-                    <a
-                        href={html_url}
-                        className="btn btn-dark my-1"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                    >
+                    {bio && <><h3>Bio:</h3><p>{bio}</p></>}
+                    <a href={html_url} className="btn btn-dark my-1" target="_blank" rel="noopener noreferrer">
                         Show Github Profile
                     </a>
                     <ul>
-                        {login && (
-                            <li>
-                                <strong>Username: </strong>{login}
-                            </li>
-                        )}
-                        {company && (
-                            <li>
-                                <strong>Company: </strong>{company}
-                            </li>
-                        )}
-                        {blog && (
-                            <li>
-                                <strong>Website: </strong>
-                                <a href={blog} target="_blank" rel="noopener noreferrer">
-                                    {blog}
-                                </a>
-                            </li>
-                        )}
+                        {login && <li><strong>Username: </strong>{login}</li>}
+                        {company && <li><strong>Company: </strong>{company}</li>}
+                        {blog && <li><strong>Website: </strong><a href={blog} target="_blank" rel="noopener noreferrer">{blog}</a></li>}
                     </ul>
                 </div>
             </div>
