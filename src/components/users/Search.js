@@ -1,11 +1,24 @@
-// Search.js
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { useLocation, useHistory } from 'react-router-dom';
 import { searchUsers } from '../../api/api';
 import Users from './Users';
 
+const useQuery = () => {
+    return new URLSearchParams(useLocation().search);
+};
+
 const Search = () => {
-    const [text, setText] = useState('');
+    const query = useQuery();
+    const history = useHistory();
+    const [text, setText] = useState(query.get('q') || '');
     const [users, setUsers] = useState([]);
+
+    useEffect(() => {
+        const queryText = query.get('q');
+        if (queryText) {
+            handleSearchUsers(queryText);
+        }
+    }, []); 
 
     const handleSearchUsers = async (text) => {
         try {
@@ -16,13 +29,17 @@ const Search = () => {
         }
     };
 
-    const clearUsers = () => setUsers([]);
+    const clearUsers = () => {
+        setUsers([]);
+        setText('');
+        history.push({ search: '' });
+    };
 
     const onSubmit = (e) => {
         e.preventDefault();
         if (text) {
             handleSearchUsers(text);
-            setText('');
+            history.push({ search: `?q=${text}` });
         } else {
             alert('Please enter something');
         }
